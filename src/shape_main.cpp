@@ -1,85 +1,186 @@
-#include <iostream>
-#include "../header/rectangle.hpp"
 #include "../header/triangle.hpp"
+#include "../header/rectangle.hpp"
+
+#include <iostream>
+#include <limits> 
+
+
 
 using namespace std;
+
 
 int main()
 {
     
-    
-    int choice  = 0;
-    cout << "To choose triangle enter 1, To choose rectangle enter 2" << endl;
-    cin >> choice;
+int userChoice = 0;
 
-    if (choice ==  2){
-        double height, width;
-        Rectangle rect1;
-        cout << "Enter width" << endl;
-        cin >> width;
-        if (width < 0 && cin.fail()){
-           return 0;
-            
-            
-        }
-        else{
-            rect1.set_width(width);
-        }
-        
-        cout << "Enter height" << endl;
-        cin >> height;
-        if (height < 0){
-            bool good = false;
-            while (good == false){
-                cout << "Enter height" <<endl;
-                cin >> height;
-                if (height>0){
-                    good = true;
-                }
-            }
-        }
-        else{
-            rect1.set_height(height);
-        }
-        
-        cout << "Rectangle 1 area: " << rect1.area() << endl;
+do 
+{
+
+    cout << "Choose 1 for triangle or choose 2 for rectangle" << endl;
+    cin >> userChoice;
+
+
+    if (cin.fail()) 
+    {
+        cin.clear(); 
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+
+        cout << "Error! Change Value" << endl;
+
+        continue; 
     }
 
-    else if (choice == 1) {
-        double height, base;
-        Triangle t1;
-        cout << "Enter base" << endl;
+} while  (userChoice > 1 || userChoice < 0);
+
+if  (userChoice == 1) 
+{
+    bool badChoice = false;
+    double height;
+    double base;
+    
+
+    Triangle triangle;
+    
+
+    badChoice = false;
+
+    cout << "Enter  Height: " << endl;
+    cin >> height;
+
+
+    if (cin.fail() || height < 0 ) 
+    {
+        badChoice = true;
+    }
+
+    while (badChoice == true) 
+    {
+        cout << "Enter  Height: " << endl;
+        cin >> height;
+        if (!cin.fail() && height > 0 ) 
+        {
+            badChoice = false;
+        } 
+        else 
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Error! Change Value" << endl;
+        }
+    }
+
+
+    cout << "Enter  Base: " << endl;
+    cin >> base;
+
+
+    if (cin.fail() || base < 0) 
+    {
+        badChoice = true;
+    }
+
+
+    while (badChoice == true) 
+    {
+        cout << "Enter  Base: " << endl;
         cin >> base;
-        if (base < 0){
-            bool good = false;
-            while (good == false){
-                cout << "Enter base" <<endl;
-                cin >> base;
-                if (base>0){
-                    good = true;
-                }
-            }
+        if (!cin.fail() && base > 0 ) 
+        {
+            badChoice = false;
+        } 
+        else 
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Error! Change Value" << endl;
         }
-        
-        t1.set_base(base);
-        
-        cout << "Enter height" << endl;
-        cin >> height;
-        if (height < 0){
-            bool good = false;
-            while (good == false){
-                cout << "Enter height" <<endl;
-                cin >> height;
-                if (height>0){
-                    good = true;
-                }
-            }
-        }
-        
-        t1.set_height(height);
-        cout << "Triangle 1 area: " << t1.area() << endl;
     }
-    
-    
-    return 0;
+    triangle.set_base(base);
+
+
+    triangle.set_height(height);
+    cout << "Triangle area: " << triangle.area() << endl;
 }
+
+
+
+
+else if  (userChoice == 2) 
+
+{
+    bool badChoice = false;
+
+    
+    double height;
+    double width;
+
+    Rectangle rectangle;
+
+   
+    
+    cout << "Enter  Height: " << endl;
+    cin >> height;
+    if (height < 0 || cin.fail()) 
+    {
+        badChoice = true;
+    }
+    while (badChoice == true) 
+    {
+        cout << "Enter Height: " << endl;
+        cin >> height;
+        if (!cin.fail() && height > 0) {
+            badChoice = false;
+        } 
+        else 
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Error! Change Value" << endl;
+        }
+    }
+
+
+    rectangle.set_height(height);
+
+    badChoice = false;
+    cout << "Enter  Width: " << endl;
+    cin >> width;
+
+
+    if (cin.fail() || width< 0  ) 
+    {
+        badChoice = true;
+    }
+
+    while (badChoice == true) {
+        cout << "Enter  Width: " << endl;
+        cin >> width;
+        if ( !cin.fail() && width > 0 ) 
+        {
+            badChoice = false;
+        } 
+        else {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Error! Change Value" << endl;
+        }
+
+    }
+
+
+    rectangle.set_width(width);
+
+
+    cout << "Rectangle area: " << rectangle.area() << endl;
+}  
+
+}
+
+
+
+
+
+
+
